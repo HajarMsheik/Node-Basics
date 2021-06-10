@@ -69,6 +69,7 @@ function unknownCommand(c){
 function hello(){
   console.log('hello!')
 }
+// help function lists all the available commands
 function Help(){
   console.log("list all the commands");
   console.log("exit or quit : quits the application with goodbye \n");
