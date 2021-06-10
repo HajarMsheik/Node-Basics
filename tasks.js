@@ -37,8 +37,8 @@ function onDataReceived(text) {
   if (text === 'quit\n' || text==='exit\n') {
     quit();
   }
-  else if(text === 'hello\n'){
-    hello();
+  else if(text === 'hello\n'  || text.startsWith('hello')){
+    hello(text);
   }
   if(text==='help\n'){
       Help();
@@ -66,8 +66,11 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function hello(){
-  console.log('hello!')
+function hello(text){
+  text=text.trim("\n","");
+  text=text.trim(" ");
+  text=text+"!";
+  console.log(text);
 }
 // help function lists all the available commands
 function Help(){
