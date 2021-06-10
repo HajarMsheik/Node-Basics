@@ -75,8 +75,9 @@ function hello(text){
 // help function lists all the available commands
 function Help(){
   console.log("list all the commands");
-  console.log("exit or quit : quits the application with goodbye \n");
+  console.log("exit or quit : quits the application with goodbye ");
   console.log("hello: prints Hello!");
+  console.log("hello world: Hello world!");
 }
 
 /**
