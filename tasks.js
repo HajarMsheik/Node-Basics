@@ -34,7 +34,7 @@ function startApp(name){
  * @returns {void}
  */
 
- let Addedlist=["eat sandwich"];
+ let Addedlist=[];
 function onDataReceived(text) {
   if (text === 'quit\n' || text==='exit\n') {
     quit();
@@ -51,6 +51,13 @@ function onDataReceived(text) {
   else if(text.startsWith('add') ){
     Add(text);
    }
+   else if(text==='remove\n'){
+       RemovelAST();
+   }
+   else if (text.startsWith('remove')){
+        RemoveAtPosition(text);
+   }
+
   else  if(text==='help\n'){
       Help();
   }
@@ -82,7 +89,20 @@ function Add(text){
       Addedlist.push(text.substring(3).trim());
       console.log(Addedlist);
     }
-
+//function remove first element
+// function RemovelAST(){
+//    Addedlist.pop();
+// }  
+function RemoveAtPosition(text){
+       text=text.substring(6);
+       if(text>0 && text<=Addedlist.length){
+        console.log(text);
+        Addedlist.splice(text-1,1);
+       }
+       else{
+          console.log("Error can't delete");
+       } 
+   }
 
 /**
  * Says hello
