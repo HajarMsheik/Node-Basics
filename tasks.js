@@ -57,6 +57,12 @@ function onDataReceived(text) {
    else if (text.startsWith('remove')){
         RemoveAtPosition(text);
    }
+   else if(text==='edit\n'){
+        console.log("Error");
+   }
+   else if (text.startsWith('edit')){
+       EditTask(text);
+   }
 
   else  if(text==='help\n'){
       Help();
@@ -103,7 +109,27 @@ function RemoveAtPosition(text){
           console.log("Error can't delete");
        } 
    }
-
+///Edit function
+//case1 :edit new text should change the last task to "new text"
+//case2 :edit 1 new text should change the task 1 to "new text"
+  function EditTask(text){
+    var res = text.split(" ");
+    //console.log(res);
+       if(isNaN(res[1])){  //first case
+           text=text.substring(4);
+           //console.log(text);
+           Addedlist.pop();
+           Addedlist.push(text.trim());
+        }
+        else{  //second case
+          newtext="";
+          for(var i=0;i<res.length-2;i++){  
+             newtext=newtext+res[i+2]+" ";
+          }
+         //console.log(newtext);
+         Addedlist[res[1]-1]= newtext;
+        }
+  }
 /**
  * Says hello
  *
