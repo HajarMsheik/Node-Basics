@@ -147,6 +147,11 @@ function Help(){
   console.log("exit or quit : quits the application with goodbye ");
   console.log("hello: prints Hello!");
   console.log("hello world: Hello world!");
+  console.log("remove\n: remove last element");
+  console.log("remove with text: replace the specified element with the text ");
+  console.log("list\n: list all the tasks ");
+  console.log("Add\n: Do not add anything");
+  console.log("Add with text: add the  task ");
 }
 
 /**
