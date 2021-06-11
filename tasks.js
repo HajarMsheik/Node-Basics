@@ -12,7 +12,9 @@
 function startApp(name){
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
+  Load();
   process.stdin.on('data', onDataReceived);
+ 
   console.log(`Welcome to ${name}'s application!`)
   console.log("--------------------")
 }
@@ -34,7 +36,8 @@ function startApp(name){
  * @returns {void}
  */
 
- let Addedlist=[];
+ Addedlist= ["Just eat"];
+ done = [true, false];
 function onDataReceived(text) {
   if (text === 'quit\n' || text==='exit\n') {
     quit();
@@ -63,6 +66,16 @@ function onDataReceived(text) {
    else if (text.startsWith('edit')){
        EditTask(text);
    }
+   else if (text === "check\n") {
+      console.log("Error");}
+
+   else if (text.startsWith("check") ){
+       check(text);}
+  else if (text === "uncheck\n") {
+        console.log("Error");}
+  
+  else if (text.startsWith("uncheck") ){
+       uncheck(text);}
 
   else  if(text==='help\n'){
       Help();
@@ -85,10 +98,14 @@ function unknownCommand(c){
 }
 //list the content of the array
 function List(){
-  for( var i=0;i<Addedlist.length;i++){
-    console.log(i+1  + "-" + " [ ] "+ Addedlist[i]);
+  for (var i = 0; i < Addedlist.length; i++) {
+    if (done[i] == true) {
+      console.log(i);
+      console.log(i + 1 + "- " + "[✓] " + Addedlist[i]);
+    } else {
+      console.log(i + 1 + "- " + "[ ] " + Addedlist[i]);
+    }
   }
-
 }
 //add function
 function Add(text){
@@ -130,6 +147,58 @@ function RemoveAtPosition(text){
          Addedlist[res[1]-1]= newtext;
         }
   }
+  ////////////////////////////////////////////////
+  function uncheck(text) {
+    var res = text.split(" ");
+      done[res[1] - 1] = false;
+   }
+  //////////////////////////////////////////////////
+
+  function check(text) { 
+    var res = text.split(" ");
+      done[res[1] - 1] = true;
+  }
+  //////////////////////////////////////////////////
+  function Load(){
+    console.log(process.argv);
+    if (process.argv.length > 2) {
+      const fs = require('fs');
+      const data = JSON.stringify(Addedlist);
+      try {
+        fs.writeFileSync(process.argv[2], data);
+        console.log('worked');
+      } catch (e) {
+        console.error(e);
+      }
+      try {
+        let Ldata = fs.readFileSync(process.argv[2]);
+        let data1 = JSON.parse(Ldata);
+        console.log(data1);
+        console.log("worked");
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      const fs = require('fs');
+      const data = JSON.stringify(Addedlist);
+      try {
+        fs.writeFileSync('database.json', data);
+        console.log('worked');
+      } catch (e) {
+        console.error(e);
+      }
+      try {
+        let Ldata = fs.readFileSync('database.json');
+        let data2= JSON.parse(Ldata);
+        console.log(data2);
+        console.log("worked");
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    }
+    /////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Says hello
  *
@@ -160,9 +229,17 @@ function Help(){
  * @returns {void}
  */
 function quit(){
-  console.log('Quitting now, goodbye!')
-  process.exit();
-}
+    console.log('Quitting now, goodbye!')
+    const fs = require('fs');
+    const data = JSON.stringify(tasks);
+    try {
+      fs.writeFileSync('database.json', data);
+      console.log('worked');
+    } catch (e) {
+      console.error(e);
+    }
+    process.exit();
+  }
 
 // The following line starts the application
 startApp("Hajar Msheik")
