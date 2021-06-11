@@ -33,6 +33,8 @@ function startApp(name){
  * @param  {string} text data typed by the user
  * @returns {void}
  */
+
+ let Addedlist=["eat sandwich"];
 function onDataReceived(text) {
   if (text === 'quit\n' || text==='exit\n') {
     quit();
@@ -40,7 +42,16 @@ function onDataReceived(text) {
   else if(text === 'hello\n'  || text.startsWith('hello')){
     hello(text);
   }
-  if(text==='help\n'){
+  else if(text=== 'list\n'){
+      List();
+    }
+  else if(text==='add\n'){
+     console.log("error! Add the text")
+  }
+  else if(text.startsWith('add') ){
+    Add(text);
+   }
+  else  if(text==='help\n'){
       Help();
   }
   else{
@@ -59,6 +70,18 @@ function onDataReceived(text) {
 function unknownCommand(c){
   console.log('unknown command: "'+c.trim()+'"')
 }
+//list the content of the array
+function List(){
+  for( var i=0;i<Addedlist.length;i++){
+    console.log(i+1  + "-" + " [ ] "+ Addedlist[i]);
+  }
+
+}
+//add function
+function Add(text){
+      Addedlist.push(text.substring(3).trim());
+      console.log(Addedlist);
+    }
 
 
 /**
